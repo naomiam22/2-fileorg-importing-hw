@@ -1,7 +1,7 @@
 #PSYC 259 Homework 1 - Data Import
 #For full credit, provide answers for at least 6/8 questions
 
-#List names of students collaborating with (no more than 2): 
+#List names of students collaborating with (no more than 2): Ricky Haneda
 
 #GENERAL INFO 
 #data_A contains 12 files of data. 
@@ -13,37 +13,58 @@
 #Speed response was what the participant report
 #Correct is whether their response matched the actual speed
 
+install.packages("tidyverse")
+
 ### QUESTION 1 ------ 
 
 # Load the readr package
-
 # ANSWER
+install.packages("tidyverse")
+install.packages("here")
+library(tidyverse)
+library(readr)
+
  
 
 ### QUESTION 2 ----- 
 
 # Read in the data for 6191_1.txt using here()
+# install.packages("here") if needed
+here("data_A", "6191_1.txt")
+file.exists(here("data_A", "6191_1.txt"))
+read_tsv(here("data_A", "6191_1.txt"))
+
 # Hint 1: use getwd first to check working directory
 # Hint 2: make sure you let R know about the data_A subfolder
 # Hint 3: nest the readr and here() functions 
+
 # Store it to an object called ds1
+ds1 <- read_tsv(here("data_A", "6191_1.txt"))
+view(ds1)
+
 # Ignore the header information, and just import the 20 trials
+ds1 <- read_tsv(here("data_A", "6191_1.txt"), skip = 6)
+view(ds1)
+
 # Be sure to look at the format of the file to determine what read_* function to use
 # And what arguments might be needed
 
-# A list of column names are provided to use:
 
+# A list of column names are provided to use:
 col_names  <-  c("trial_num","speed_actual","speed_response","correct")
+ds1 <- read_tsv(here("data_A", "6191_1.txt"), skip = 7, col_names = col_names)
 
 # ANSWER
+view(ds1)
 
 ### QUESTION 3a. ----- 
 
 # For some reason, the trial numbers for this experiment should start at 100
 # Create a new column in ds1 that takes trial_num and adds 100
+ds1$trial_num100 <- (ds1$trial_num + 100) 
 
 # ANSWER
-
+view(ds1)
 
 ### QUESTION 3b. ----- 
 # Write the new data from question 3a to a CSV file in the "data_A_cleaned" folder
