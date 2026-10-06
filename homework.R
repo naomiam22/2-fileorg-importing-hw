@@ -76,7 +76,8 @@ if (!dir.exists("data_A_cleaned")) dir.create("data_A_cleaned")
 write_csv(ds1, file = "data_A_cleaned/261006_6191_block1.csv")
 
 # ANSWER
-
+I included a date prefix that is chronological based on when the data was cleaned, followed by the participant ID. 
+The suffix is also chronological based on the block number
 
 ### QUESTION 4 ----- 
 
