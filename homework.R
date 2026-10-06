@@ -72,6 +72,9 @@ view(ds1)
 # Choose a naming convention for this new dataset (ex. snake_case, no spaces, a date or version prefix/suffix)
 # Add one commend explaining your naming choice
 
+if (!dir.exists("data_A_cleaned")) dir.create("data_A_cleaned")
+write_csv(ds1, file = "data_A_cleaned/261006_6191_block1.csv")
+
 # ANSWER
 
 
