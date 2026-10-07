@@ -24,7 +24,6 @@ install.packages("here")
 library(tidyverse)
 library(readr)
 
- 
 
 ### QUESTION 2 ----- 
 
@@ -76,8 +75,8 @@ if (!dir.exists("data_A_cleaned")) dir.create("data_A_cleaned")
 write_csv(ds1, file = "data_A_cleaned/261006_6191_block1.csv")
 
 # ANSWER
-I included a date prefix that is chronological based on when the data was cleaned, followed by the participant ID. 
-The suffix is also chronological based on the block number
+#I included a date prefix that is chronological based on when the data was cleaned, followed by the participant ID. 
+#The suffix is also chronological based on the block number
 
 ### QUESTION 4 ----- 
 
@@ -85,14 +84,23 @@ The suffix is also chronological based on the block number
 # Store it to a variable
 
 # ANSWER
-
+library(fs)
+data_A_raw <- dir_ls("data_A")
+print(data_A_raw)
 
 ### QUESTION 5 ----- 
 
 # Read all of the files in data_A into a single tibble called ds
 
 # ANSWER
+data_A_full <- list.files("data_A", full.names = TRUE)
+ds <- read_tsv(data_A_full, col_names = FALSE)
+print(ds)
+view(ds)
 
+col_names  <-  c("trial_num","speed_actual","speed_response","correct")
+ds <- read_tsv(here(data_A_full), skip = 7, col_names = col_names)
+view(ds)
 
 ### QUESTION 6 -----
 
@@ -105,6 +113,19 @@ The suffix is also chronological based on the block number
 # (It should work now, but you'll see a warning because of the erroneous data point)
 
 # ANSWER
+ds$trial_num100 <- (ds$trial_num + 100) 
+#error - non-numeric arguement to binary operator 
+
+read_tsv(here("data_A", "6191_5.txt"))
+view(read_tsv(here("data_A", "6191_5.txt")))
+#trial ten needs to be forced to integer 
+
+col_types <- "iccl"
+ds <- read_tsv(here(data_A_full), skip = 7, col_names = col_names, col_types = col_types)
+view(ds)
+
+ds$trial_num100 <- (ds$trial_num + 100)
+view(ds)
 
 
 ### QUESTION 7 -----
