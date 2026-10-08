@@ -23,7 +23,7 @@ install.packages("tidyverse")
 install.packages("here")
 library(tidyverse)
 library(readr)
-
+library(here)
 
 ### QUESTION 2 ----- 
 
@@ -127,7 +127,6 @@ view(ds)
 ds$trial_num100 <- (ds$trial_num + 100)
 view(ds)
 
-
 ### QUESTION 7 -----
 
 # Now that the column type problem is fixed, take a look at ds()
@@ -136,6 +135,21 @@ view(ds)
 # Re-import the data so that filename becomes a column
 
 # ANSWER
+data_A_ID <- dir_ls("data_A")
+print(data_A_ID)
+
+ds <- read_tsv(
+  data_A_ID,
+  skip = 7,
+  col_names = col_names,
+  col_types = col_types,
+  id = "Participant ID",
+)
+print(ds)
+view(ds)
+
+ds$trial_num100 <- (ds$trial_num + 100)
+view(ds)
 
 
 ### QUESTION 8 -----
@@ -145,4 +159,13 @@ view(ds)
 # There are two sheets of data -- import each one into a new tibble
 
 # ANSWER
+install.packages("readxl")
+library(readxl)
+list.files("data_B", full.names = TRUE)
+data_B <- read_excel("data_B/participant_info.xlsx", sheet = 1)
+print(data_B)
+view(data_B)
 
+data_B_dates <- read_excel("data_B/participant_info.xlsx", sheet = 2, col_names = FALSE)
+print(data_B_dates)
+view(data_B_dates)
